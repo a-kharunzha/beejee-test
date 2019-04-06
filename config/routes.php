@@ -6,6 +6,7 @@
 use App\Controller\Task;
 
 $router->get('/add/', [Task::class, 'add']);
+$router->post('/add/', [Task::class, 'add']);
 $router->get('/', [Task::class, 'list']);
 $router->get('/{page:number}/', [Task::class, 'list']);
 $router->get('/{sort:word}/', [Task::class, 'list']);

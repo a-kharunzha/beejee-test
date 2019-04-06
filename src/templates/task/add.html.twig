@@ -1,4 +1,45 @@
 {% extends "base.html.twig" %}
 {% block content %}
-    add form will be here
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3"></div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-9">
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        Add new task
+                    </div>
+                    <div class="card-body">
+                        {% if message %}
+                        <div class="d-flex p-2 bg-success">{{ message }}</div>
+                        {% endif %}
+                        <form method="POST" action="">
+                            <div class="form-group">
+                                <label for="exampleInputName1">Name</label>
+                                <input name="name" value="{{ values.name }}" type="text" class="form-control {{ errors.name?'is-invalid':'' }}" id="exampleInputName1" placeholder="Enter name">
+                                <div class="invalid-feedback">{{ errors.name }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input name="email" value="{{ values.email }}" type="email" class="form-control {{ errors.email?'is-invalid':'' }}" id="exampleInputEmail1"
+                                       placeholder="Enter email">
+                                <div class="invalid-feedback">{{ errors.email }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Example textarea</label>
+                                <textarea name="text" value="{{ values.text }}" class="form-control {{ errors.text?'is-invalid':'' }}" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <div class="invalid-feedback">{{ errors.text }}</div>
+                            </div>
+                            <button name="save" value="1" type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+
+    </div>
 {% endblock %}

@@ -8,6 +8,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Model\Task as TaskModel;
+use App\Exception\TaskInvalidArrayException;
 
 class Task
 {
@@ -38,8 +39,21 @@ class Task
 
     public function add(RequestInterface $request): ResponseInterface
     {
+        $data = [];
+        $data['values'] = $request->getParsedBody();
+        if($data['values']['save']){
+            try {
+                $newTask = TaskModel::initFromArray($data['values']);
+                $newTask->save();
+                // @todo: show message after redirect, saving flash data in session
+                $data['message'] = 'Task is created successfully';
+                $data['values'] = [];
+            } catch (TaskInvalidArrayException $e) {
+                $data['errors'] = $e->getErrors();
+            }
+        }
         $this->response->getBody()->write(
-            $this->renderView('task/add')
+            $this->renderView('task/add',$data)
         );
         return $this->response;
     }

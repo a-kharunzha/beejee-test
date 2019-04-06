@@ -5,6 +5,7 @@ namespace App\Model;
 
 
 use ActiveRecord\Model;
+use App\Exception\TaskInvalidArrayException;
 use JasonGrimes\Paginator;
 
 /**
@@ -73,5 +74,27 @@ class Task extends Model
         $urlPattern = '/' . $requestParams['sort'] . '/' . $requestParams['dir'] . '/(:num)/';
         $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
         return $paginator;
+    }
+
+    public static function initFromArray(array $fieldValues)
+    {
+        $errors = [];
+        $emptyRules = [
+            'name' => 'Please enter Name',
+            'email' => 'Please enter Email',
+            'text' => 'Provide task description',
+        ];
+        $task = new static();
+        foreach($emptyRules as $field => $errorText){
+            if(empty($fieldValues[$field])){
+                $errors[$field] = $errorText;
+            }else{
+                $task->{$field} = $fieldValues[$field];
+            }
+        }
+        if($errors){
+            throw new TaskInvalidArrayException('Invalid input array',$errors);
+        }
+        return $task;
     }
 }
