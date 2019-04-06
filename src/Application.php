@@ -4,6 +4,8 @@
 namespace App;
 
 
+use League\Route\Router;
+use Narrowspark\HttpEmitter\EmitterInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Application
@@ -14,8 +16,22 @@ class Application
      */
     protected $request;
 
+    /**
+     * @Inject
+     * @var Router
+     */
+    protected $router;
+
+    /**
+     * @Inject
+     * @var EmitterInterface
+     */
+    protected $emitter;
+
     public function run()
     {
-        echo 'app is running by uri '.$this->request->getUri();
+        // echo 'run app by url '.$this->request->getUri();
+        $response = $this->router->dispatch($this->request);
+        $this->emitter->emit($response);
     }
 }
