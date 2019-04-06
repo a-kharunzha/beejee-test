@@ -7,5 +7,6 @@
     # all requests to index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !/dayside/.*$ [NC]
     RewriteRule ^.*$ /index.php [L,QSA]
 </IfModule>
