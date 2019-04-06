@@ -2,12 +2,13 @@
     "name": "rolland/beejee-test",
     "type": "project",
     "require": {
-        "php-di/php-di": "^6.0",
-        "vlucas/phpdotenv": "^3.3",
-        "zendframework/zend-diactoros": "^2.1",
         "doctrine/annotations": "^1.6",
         "league/route": "^4.2",
-        "narrowspark/http-emitter": "^0.7.0"
+        "narrowspark/http-emitter": "^0.7.0",
+        "php-di/php-di": "^6.0",
+        "robmorgan/phinx": "^0.10.6",
+        "vlucas/phpdotenv": "^3.3",
+        "zendframework/zend-diactoros": "^2.1"
     },
     "require-dev": {
         "filp/whoops": "^2.3",
@@ -26,5 +27,12 @@
         "psr-4": {
             "App\\": "src/"
         }
+    },
+    "scripts": {
+        "phinx:create": "phinx create -c config/phinx.php",
+        "phinx:migrate": "phinx migrate -c config/phinx.php",
+        "phinx:rollback": "phinx rollback -c config/phinx.php",
+        "phinx:seed:create": "phinx seed:create -c config/phinx.php",
+        "phinx:seed:run": "phinx seed:run -c config/phinx.php"
     }
 }
