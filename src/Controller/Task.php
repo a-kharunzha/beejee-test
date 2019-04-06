@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace App\Controller;
@@ -25,10 +25,12 @@ class Task
 
     public function list(RequestInterface $request, $params): ResponseInterface
     {
-        $list = TaskModel::findListRequestParams($params);
+        $list = TaskModel::findListByRequestParams($params);
+        $paginator = TaskModel::makePaginatorByRequestParams($params);
         $this->response->getBody()->write(
             $this->renderView('task/list', [
-                'list' => $list
+                'list' => $list,
+                'paginator'=>$paginator
             ])
         );
         return $this->response;

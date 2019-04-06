@@ -4,6 +4,7 @@
     "require": {
         "doctrine/annotations": "^1.6",
         "fzaninotto/faker": "^1.8",
+        "jasongrimes/paginator": "^1.0",
         "league/route": "^4.2",
         "narrowspark/http-emitter": "^0.7.0",
         "php-activerecord/php-activerecord": "^1.2",

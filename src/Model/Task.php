@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace App\Model;
 
 
 use ActiveRecord\Model;
-use App\Model\Task as TaskModel;
+use JasonGrimes\Paginator;
 
 /**
  * Class Review
@@ -25,15 +25,13 @@ class Task extends Model
     ];
     const ALLOWED_DIR = ['asc', 'desc'];
 
-    public static function findListRequestParams(array $requestParams)
+    public static function findListByRequestParams(array $requestParams)
     {
         return static::find('all', static::makeFindParamsFromRequestParams($requestParams));
     }
 
-    public static function makeFindParamsFromRequestParams($requestParams): array
+    protected static function normalizeRequestParams(array $requestParams): array
     {
-        // dump($requestParams);
-        $findParams = ['limit' => 3];
         // check sort
         if (!array_key_exists($requestParams['sort'], static::DEFAULT_DIR)) {
             $requestParams['sort'] = static::DEFAULT_SORT;
@@ -44,15 +42,36 @@ class Task extends Model
         ) {
             $requestParams['dir'] = static::DEFAULT_DIR[$requestParams['sort']];
         }
+        // page must be int, default to 1
+        $requestParams['page'] = intval($requestParams['page'] ?? 1);
+        return $requestParams;
+    }
+
+    public static function makeFindParamsFromRequestParams(array $requestParams): array
+    {
+        $requestParams = static::normalizeRequestParams($requestParams);
+        $findParams = ['limit' => self::PER_PAGE];
         // check page
         if ($requestParams['page'] && $requestParams['page'] > 1) {
             $findParams['offset'] = ($requestParams['page'] - 1) * static::PER_PAGE;
         }
-        //
         $findParams['order'] = $requestParams['sort'] . ' ' . $requestParams['dir'];
-        //
-        // dump($findParams);
-        // exit();
         return $findParams;
+    }
+
+    public static function makePaginatorByRequestParams($requestParams) : Paginator
+    {
+        $requestParams = static::normalizeRequestParams($requestParams);
+        // it is not necessary while $findParams does not contain any filters
+        // but let be
+        $findParams = static::makeFindParamsFromRequestParams($requestParams);
+        unset($findParams['offset']); // to count all items
+        $itemsPerPage = $findParams['limit'];
+        $totalItems = static::count($findParams);
+        $currentPage = $requestParams['page'];
+        //
+        $urlPattern = '/' . $requestParams['sort'] . '/' . $requestParams['dir'] . '/(:num)/';
+        $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
+        return $paginator;
     }
 }
