@@ -39,9 +39,12 @@
                                 {% else %}
                                     <span class="badge badge-secondary">In progress</span>
                                 {% endif %}
-                                <small class="text-muted">Created by {{ task.name }} ({{ task.email }})
-                                    on {{ task.created.format('d/m/Y H:i') }}</small>
+                                <small class="text-muted">User: {{ task.name }} ({{ task.email }}).
+                                    Created on {{ task.created.format('d/m/Y H:i') }}</small>
                                 <p>{{ task.text }}</p>
+                                {% if user.isAuthorized() %}
+                                    <a class="btn btn-primary" href="/edit/{{ task.id }}/" role="button">Edit task</a>
+                                {% endif %}
                                 <hr>
                             {% endfor %}
                         </div>

@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Controller;
+use League\Route\Http\Exception\NotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use App\Model\Task as TaskModel;
 use App\Exception\TaskInvalidArrayException;
@@ -41,6 +42,36 @@ class Task extends Controller
         }
         $this->response->getBody()->write(
             $this->renderView('task/add',$data)
+        );
+        return $this->response;
+    }
+
+    public function edit(ServerRequestInterface $request, $params): ResponseInterface
+    {
+        // must be int
+        $params['id'] = (int)$params['id'];
+        // check if such task exists
+        $task = TaskModel::find([$params['id']]);
+        if(!$task){
+            throw new NotFoundException();
+        }
+        $data = [];
+        $data['values'] = $request->getParsedBody();
+        $data['values']['id'] = $task->id;
+        if($data['values']['save']){
+            try {
+                $newTask = TaskModel::initFromArray($data['values']);
+                $newTask->save();
+                // @todo: show message after redirect, saving flash data in session
+                $data['message'] = 'Task is updated successfully';
+            } catch (TaskInvalidArrayException $e) {
+                $data['errors'] = $e->getErrors();
+            }
+        }else{
+            $data['values'] = $task;
+        }
+        $this->response->getBody()->write(
+            $this->renderView('task/edit',$data)
         );
         return $this->response;
     }

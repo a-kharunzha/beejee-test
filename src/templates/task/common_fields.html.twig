@@ -1,0 +1,17 @@
+<div class="form-group">
+    <label for="exampleInputName1">Name</label>
+    <input name="name" value="{{ values.name }}" type="text" class="form-control {{ errors.name?'is-invalid':'' }}" id="exampleInputName1" placeholder="Enter name">
+    <div class="invalid-feedback">{{ errors.name }}</div>
+</div>
+<div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input name="email" value="{{ values.email }}" type="email" class="form-control {{ errors.email?'is-invalid':'' }}" id="exampleInputEmail1"
+           placeholder="Enter email">
+    <div class="invalid-feedback">{{ errors.email }}</div>
+</div>
+<div class="form-group">
+    <label for="exampleFormControlTextarea1">Task description</label>
+    <textarea name="text" class="form-control {{ errors.text?'is-invalid':'' }}" id="exampleFormControlTextarea1" rows="3">{{ values.text }}</textarea>
+    <div class="invalid-feedback">{{ errors.text }}</div>
+</div>
+

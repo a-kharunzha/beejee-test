@@ -84,7 +84,11 @@ class Task extends Model
             'email' => 'Please enter Email',
             'text' => 'Provide task description',
         ];
-        $task = new static();
+        if($fieldValues['id']){
+            $task = static::find([$fieldValues['id']]);
+        }else{
+            $task = new static();
+        }
         foreach($emptyRules as $field => $errorText){
             if(empty($fieldValues[$field])){
                 $errors[$field] = $errorText;
@@ -92,6 +96,9 @@ class Task extends Model
                 $task->{$field} = $fieldValues[$field];
             }
         }
+        // status
+        $task->status = !empty($fieldValues['status']);
+        //
         if($errors){
             throw new TaskInvalidArrayException('Invalid input array',$errors);
         }
