@@ -1,10 +1,37 @@
 {% extends "base.html.twig" %}
 {% block content %}
-    {% for task in list %}
-        {{ task.name }} |
-        {{ task.email }} <br>
-        {{ task.text }} <br>
-        {{ task.created }}
-        <br><br>
-    {% endfor %}
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3">
+
+            </div>
+            <!-- /.col-lg-3 -->
+
+            <div class="col-lg-9">
+
+                {% if list %}
+                    <div class="card card-outline-secondary my-4">
+                        <div class="card-header">
+                            List Tasks
+                        </div>
+                        <div class="card-body">
+                            {% for task in list %}
+                                <small class="text-muted">Created by {{ task.name }} ({{ task.email }}) on {{ task.created.format('d/m/Y H:i') }}</small>
+                                <p>{{ task.text }}</p>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+
+    </div>
+    <!-- /.container -->
 {% endblock %}

@@ -2,11 +2,27 @@
 <html lang="en">
 <head>
     {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Задачник{% endblock %}</title>
+        <link href="/s/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     {% endblock %}
 </head>
 <body>
+<!-- Navigation -->
+{% include 'header.html.twig' %}
 <!-- Page Content -->
 {% block content %}{% endblock %}
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Alex Kharunzha 2019</p>
+    </div>
+    <!-- /.container -->
+</footer>
+<!-- Bootstrap core JavaScript -->
+<script src="/s/jquery/jquery.min.js"></script>
+<script src="/s/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/s/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
