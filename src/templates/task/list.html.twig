@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    {% for task in list %}
+        {{ task.name }} |
+        {{ task.email }} <br>
+        {{ task.text }} <br>
+        {{ task.created }}
+        <br><br>
+    {% endfor %}
+{% endblock %}

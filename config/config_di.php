@@ -7,6 +7,8 @@ use Narrowspark\HttpEmitter\SapiEmitter;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 
@@ -27,5 +29,13 @@ return [
     },
     EmitterInterface::class => function(){
         return new SapiEmitter;
-    }
+    },
+    Environment::class => function () {
+        $loader = new FilesystemLoader(realpath(__DIR__ . '/../src/templates'));
+        $twig = new Environment($loader, [
+            'cache' => realpath(__DIR__ . '/../cache/twig'),
+            'debug' => true
+        ]);
+        return $twig;
+    },
 ];
