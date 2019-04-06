@@ -7,7 +7,8 @@
             <div class="col-lg-3">
                 <h2>Sort by:</h2>
                 <div class="dropdown show">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Choose
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -38,7 +39,8 @@
                                 {% else %}
                                     <span class="badge badge-secondary">In progress</span>
                                 {% endif %}
-                                <small class="text-muted">Created by {{ task.name }} ({{ task.email }}) on {{ task.created.format('d/m/Y H:i') }}</small>
+                                <small class="text-muted">Created by {{ task.name }} ({{ task.email }})
+                                    on {{ task.created.format('d/m/Y H:i') }}</small>
                                 <p>{{ task.text }}</p>
                                 <hr>
                             {% endfor %}

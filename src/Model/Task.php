@@ -19,37 +19,37 @@ class Task extends Model
     const DEFAULT_SORT = 'created';
     const DEFAULT_DIR = [
         'name' => 'asc',
-        'email'  => 'asc',
+        'email' => 'asc',
         'created' => 'desc',
-        'status'  => 'asc'
+        'status' => 'asc'
     ];
-    const ALLOWED_DIR = ['asc','desc'];
+    const ALLOWED_DIR = ['asc', 'desc'];
 
     public static function findListRequestParams(array $requestParams)
     {
-        return static::find('all',static::makeFindParamsFromRequestParams($requestParams));
+        return static::find('all', static::makeFindParamsFromRequestParams($requestParams));
     }
 
-    public static function makeFindParamsFromRequestParams($requestParams) : array
+    public static function makeFindParamsFromRequestParams($requestParams): array
     {
         // dump($requestParams);
-        $findParams = ['limit'=>3];
+        $findParams = ['limit' => 3];
         // check sort
-        if(!array_key_exists($requestParams['sort'],static::DEFAULT_DIR)){
+        if (!array_key_exists($requestParams['sort'], static::DEFAULT_DIR)) {
             $requestParams['sort'] = static::DEFAULT_SORT;
         }
         // check dir
-        if(
-            !in_array($requestParams['dir'], static::ALLOWED_DIR)
-        ){
+        if (
+        !in_array($requestParams['dir'], static::ALLOWED_DIR)
+        ) {
             $requestParams['dir'] = static::DEFAULT_DIR[$requestParams['sort']];
         }
         // check page
-        if($requestParams['page'] && $requestParams['page'] > 1){
-            $findParams['offset'] = ($requestParams['page'] -1 ) * static::PER_PAGE;
+        if ($requestParams['page'] && $requestParams['page'] > 1) {
+            $findParams['offset'] = ($requestParams['page'] - 1) * static::PER_PAGE;
         }
         //
-        $findParams['order'] = $requestParams['sort'].' '.$requestParams['dir'];
+        $findParams['order'] = $requestParams['sort'] . ' ' . $requestParams['dir'];
         //
         // dump($findParams);
         // exit();

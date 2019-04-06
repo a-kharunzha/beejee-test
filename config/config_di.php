@@ -27,7 +27,7 @@ return [
         require __DIR__ . '/routes.php';
         return $router;
     },
-    EmitterInterface::class => function(){
+    EmitterInterface::class => function () {
         return new SapiEmitter;
     },
     Environment::class => function () {
