@@ -6,6 +6,7 @@
         "fzaninotto/faker": "^1.8",
         "league/route": "^4.2",
         "narrowspark/http-emitter": "^0.7.0",
+        "php-activerecord/php-activerecord": "^1.2",
         "php-di/php-di": "^6.0",
         "robmorgan/phinx": "^0.10.6",
         "vlucas/phpdotenv": "^3.3",

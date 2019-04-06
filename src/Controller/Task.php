@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use App\Model\Task as TaskModel;
 
 class Task
 {
@@ -16,6 +17,10 @@ class Task
 
     public function list(RequestInterface $request): ResponseInterface
     {
+        $list = TaskModel::find('all',['limit'=>3,'order'=>'id desc']);
+        dump($list);
+        exit();
+
         $this->response->getBody()->write('run list');
         return $this->response;
     }

@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-use DI\ContainerBuilder;
 use Dotenv\Dotenv;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
@@ -22,7 +21,9 @@ if (getenv('ENV') == 'dev') {
     /** @todo: set own error page?? */
 }
 //
-$containerBuilder = new ContainerBuilder;
+require_once __DIR__ . '/active_record.php';
+//
+$containerBuilder = new DI\ContainerBuilder;
 $containerBuilder->addDefinitions(__DIR__ . '/config_di.php');
 $containerBuilder->useAnnotations(true);
 $container = $containerBuilder->build();
