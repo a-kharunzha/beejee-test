@@ -1,5 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
+    # todo: Force Trailing Slash
+    # this variant adds /public/ at start, not normal
+    # RewriteCond %{REQUEST_FILENAME} !-f
+    # RewriteRule ^(.*)([^/])$        /$1$2/ [L,R=301]
+    # all requests to index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^.*$ /index.php [L,QSA]

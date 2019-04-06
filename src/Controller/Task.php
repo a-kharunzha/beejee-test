@@ -23,9 +23,9 @@ class Task
      */
     protected $container;
 
-    public function list(RequestInterface $request): ResponseInterface
+    public function list(RequestInterface $request, $params): ResponseInterface
     {
-        $list = TaskModel::find('all',['limit'=>3,'order'=>'id desc']);
+        $list = TaskModel::findListRequestParams($params);
         $this->response->getBody()->write(
             $this->renderView('task/list', [
                 'list' => $list

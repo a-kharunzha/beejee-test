@@ -5,7 +5,22 @@
         <div class="row">
 
             <div class="col-lg-3">
-
+                <h2>Sort by:</h2>
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choose
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="/name/ask/">Name asc</a>
+                        <a class="dropdown-item" href="/name/desc/">Name desc</a>
+                        <a class="dropdown-item" href="/email/ask/">Email asc</a>
+                        <a class="dropdown-item" href="/email/desc/">Email desc</a>
+                        <a class="dropdown-item" href="/status/desc/">Done first</a>
+                        <a class="dropdown-item" href="/status/asc/">Undone first</a>
+                        <a class="dropdown-item" href="/created/ask/">Old first</a>
+                        <a class="dropdown-item" href="/created/desc/">New first</a>
+                    </div>
+                </div>
             </div>
             <!-- /.col-lg-3 -->
 
@@ -18,6 +33,11 @@
                         </div>
                         <div class="card-body">
                             {% for task in list %}
+                                {% if task.status %}
+                                    <span class="badge badge-success">Work is done</span>
+                                {% else %}
+                                    <span class="badge badge-secondary">In progress</span>
+                                {% endif %}
                                 <small class="text-muted">Created by {{ task.name }} ({{ task.email }}) on {{ task.created.format('d/m/Y H:i') }}</small>
                                 <p>{{ task.text }}</p>
                                 <hr>
