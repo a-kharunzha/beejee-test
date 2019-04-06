@@ -11,6 +11,7 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
+use Zend\Session\Container as SessionContainer;
 
 return [
     ServerRequestInterface::class => function () {
@@ -38,4 +39,7 @@ return [
         ]);
         return $twig;
     },
+    SessionContainer::class => function(){
+        return new SessionContainer('app');
+    }
 ];

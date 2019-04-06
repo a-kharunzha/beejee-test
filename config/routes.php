@@ -3,8 +3,12 @@
 /** @var League\Route\Router $router */
 
 // map a routes
+use App\Controller\User;
 use App\Controller\Task;
 
+$router->get('/login/', [User::class, 'login']);
+$router->post('/login/', [User::class, 'login']);
+$router->get('/logout/', [User::class, 'logout']);
 $router->get('/add/', [Task::class, 'add']);
 $router->post('/add/', [Task::class, 'add']);
 $router->get('/', [Task::class, 'list']);

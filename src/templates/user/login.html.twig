@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3"></div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-9">
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        Sign in
+                    </div>
+                    <div class="card-body">
+                        {% if errors.total %}
+                            <div class="d-flex p-2 text-white bg-danger mb-2 rounded">{{ errors.total }}</div>
+                        {% endif %}
+                        <form method="POST" action="">
+                            <div class="form-group">
+                                <label for="inputLogin">Login</label>
+                                <input name="login" value="{{ values.login }}" type="text"
+                                       class="form-control {{ errors.login?'is-invalid':'' }}" id="inputLogin"
+                                       placeholder="Enter login">
+                                <div class="invalid-feedback">{{ errors.login }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Email address</label>
+                                <input name="password" value="" type="password"
+                                       class="form-control {{ errors.password?'is-invalid':'' }}" id="inputPassword"
+                                       placeholder="Enter password">
+                                <div class="invalid-feedback">{{ errors.password }}</div>
+                            </div>
+                            <button name="auth" value="1" type="submit" class="btn btn-primary">Sign in</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+
+    </div>
+{% endblock %}

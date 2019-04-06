@@ -3,28 +3,15 @@
 
 namespace App\Controller;
 
-use App\View;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Message\RequestInterface;
+use App\Controller;
 use Psr\Http\Message\ResponseInterface;
 use App\Model\Task as TaskModel;
 use App\Exception\TaskInvalidArrayException;
+use Psr\Http\Message\ServerRequestInterface;
 
-class Task
+class Task extends Controller
 {
-    /**
-     * @Inject
-     * @var ResponseInterface
-     */
-    protected $response;
-
-    /**
-     * @Inject
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    public function list(RequestInterface $request, $params): ResponseInterface
+    public function list(ServerRequestInterface $request, $params): ResponseInterface
     {
         $list = TaskModel::findListByRequestParams($params);
         $paginator = TaskModel::makePaginatorByRequestParams($params);
@@ -37,7 +24,7 @@ class Task
         return $this->response;
     }
 
-    public function add(RequestInterface $request): ResponseInterface
+    public function add(ServerRequestInterface $request): ResponseInterface
     {
         $data = [];
         $data['values'] = $request->getParsedBody();
@@ -56,14 +43,5 @@ class Task
             $this->renderView('task/add',$data)
         );
         return $this->response;
-    }
-
-    protected function renderView(string $templateName, array $data = [])
-    {
-        /** @var View $view */
-        $view = $this->container->make(View::class, [
-            'fileName' => $templateName
-        ]);
-        return $view->render($data);
     }
 }
