@@ -1,2 +1,7 @@
 # phpstorm
-.idea/
+.idea/*
+
+#config
+.env
+
+/vendor/
