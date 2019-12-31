@@ -36,16 +36,16 @@ class User
             // if it will be necessary, [] can be used to show more detailed errors for each field
             throw new AuthException('Invalid login or pass', []);
         }
-        $this->session->auth = true;
+        $this->session['auth'] = true;
     }
 
     public function logout()
     {
-        $this->session->auth = false;
+        $this->session['auth'] = false;
     }
 
     public function isAuthorized()
     {
-        return $this->session->auth;
+        return $this->session['auth'];
     }
 }
