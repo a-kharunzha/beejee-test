@@ -5,6 +5,7 @@ namespace App;
 
 
 use App\Exception\UserOverridedException;
+use DI\Annotation\Inject;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 

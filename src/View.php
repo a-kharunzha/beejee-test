@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DI\Annotation\Inject;
 use Twig\Environment;
 
 class View

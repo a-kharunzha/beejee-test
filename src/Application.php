@@ -4,6 +4,7 @@
 namespace App;
 
 
+use DI\Annotation\Inject;
 use League\Route\Router;
 use Narrowspark\HttpEmitter\EmitterInterface;
 use Psr\Http\Message\ServerRequestInterface;
